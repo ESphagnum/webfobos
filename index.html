@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Фобос · Указы</title>
+    <title>SS14 · Указ Сервера</title>
     <!-- Шрифт с футуристическим характером -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400&family=Russo+One&display=swap" rel="stylesheet">
-  	<link rel="icon" type="image/png" sizes="32x32" href="./favicon.png">
     <style>
         /* Сброс и базовые стили */
         * {
@@ -24,7 +23,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow-y: auto;  /* 👈 ВКЛЮЧАЕМ ВЕРТИКАЛЬНЫЙ СКРОЛЛ */
+            overflow-y: auto;  /* ВЕРТИКАЛЬНЫЙ СКРОЛЛ ВКЛЮЧЕН */
             overflow-x: hidden;
             position: relative;
             color: #e0f0ff;
@@ -272,7 +271,7 @@
             font-style: italic;
         }
 
-        /* ===== КЛОУН ВЫЛЕТАЮЩИЙ ИЗ РАМКИ (PNG) ===== */
+        /* ===== КЛОУН ВЫЛЕТАЮЩИЙ ИЗ РАМКИ ===== */
         .clown {
             position: fixed;
             z-index: 100;
@@ -338,8 +337,8 @@
     <!-- Главная карточка с указами -->
     <main class="decree-card">
         <div class="decree-header">
-            <h1>📜 УКАЗЫ ФОБОСА</h1>
-            <div class="subtitle">/// СЕКТОР Фобос · МЁРТВЫЙ КОСМОС ///</div>
+            <h1>📜 УКАЗ СТАНЦИИ</h1>
+            <div class="subtitle">/// СЕКТОР 7 · ПОД-СЕРВЕР "СПИРАЛЬ" ///</div>
         </div>
         <div class="decree-content">
             <div class="decree-item">
@@ -372,7 +371,7 @@
             </div>
         </div>
         <div class="decree-footer">
-            ⚠ Нарушители будут космированы без скафандра, но с гармошкой.
+            ⚠ Нарушители будут высланы в открытый космос без скафандра, но с гармошкой.
         </div>
     </main>
 
@@ -383,17 +382,14 @@
         (function() {
             const clownLayer = document.getElementById('clown-layer');
 
-            // ✅ ПРЯМАЯ ССЫЛКА НА PNG ИЗОБРАЖЕНИЕ КЛОУНА
-            // Вы можете заменить эту ссылку на свою (локальный путь или URL)
-            const clownImageSrc = 'https://static.wikia.nocookie.net/ss14andromeda13/images/f/ff/Clown.png/revision/latest?cb=20230217121049&path-prefix=ru';
-            // Альтернативный вариант: https://img.icons8.com/color/96/clown.png
+            const clownImageSrc = 'Clown.webp';
 
             function createClown() {
                 const side = Math.floor(Math.random() * 4); // 0 лево, 1 право, 2 верх, 3 низ
                 const clown = document.createElement('div');
                 clown.className = 'clown';
 
-                // Создаём img элемент с PNG
+                // Создаём img элемент с файлом клоуна
                 const img = document.createElement('img');
                 img.src = clownImageSrc;
                 img.alt = 'Клоун';
