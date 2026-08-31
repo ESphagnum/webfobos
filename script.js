@@ -1,52 +1,82 @@
 (function() {
     const clownLayer = document.getElementById('clown-layer');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalText = document.getElementById('modalText');
+    const modalClose = document.getElementById('modalClose');
 
     const clownImageSrc = 'Clown.webp';
 
+    // ===== МОДАЛЬНОЕ ОКНО =====
+    function openModal(details) {
+        modalText.textContent = details;
+        modalOverlay.classList.add('active');
+    }
+
+    function closeModal() {
+        modalOverlay.classList.remove('active');
+    }
+
+    // Открытие только по клику на указ с доп. информацией
+    document.querySelectorAll('.decree-item.has-details').forEach(item => {
+        item.addEventListener('click', () => {
+            const details = item.getAttribute('data-details');
+            if (details) openModal(details);
+        });
+    });
+
+    // Закрытие по крестику
+    modalClose.addEventListener('click', closeModal);
+
+    // Закрытие по клику на фон
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
+    });
+
+    // Закрытие по клавише Esc
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    // ===== КЛОУНЫ =====
     function createClown() {
-        const side = Math.floor(Math.random() * 4); // 0 лево, 1 право, 2 верх, 3 низ
+        const side = Math.floor(Math.random() * 4);
         const clown = document.createElement('div');
         clown.className = 'clown';
 
-        // Создаём img элемент с файлом клоуна
         const img = document.createElement('img');
         img.src = clownImageSrc;
         img.alt = 'Клоун';
         img.draggable = false;
         clown.appendChild(img);
 
-        // Случайные параметры полёта
         const flyX = (Math.random() * 500 - 250) + (side === 0 ? -80 : side === 1 ? 80 : 0);
         const flyY = (Math.random() * 500 - 250) + (side === 2 ? -80 : side === 3 ? 80 : 0);
 
         clown.style.setProperty('--fly-x', `${flyX}px`);
         clown.style.setProperty('--fly-y', `${flyY}px`);
 
-        // Стартовая позиция (за пределами видимой области)
         const startX = side === 0 ? -100 : side === 1 ? window.innerWidth + 20 : Math.random() * window.innerWidth;
         const startY = side === 2 ? -100 : side === 3 ? window.innerHeight + 20 : Math.random() * window.innerHeight;
 
         clown.style.left = `${startX}px`;
         clown.style.top = `${startY}px`;
 
-        // Лёгкий разброс
         clown.style.marginLeft = `${Math.random() * 30 - 15}px`;
         clown.style.marginTop = `${Math.random() * 30 - 15}px`;
 
         clownLayer.appendChild(clown);
 
-        // Удаление после анимации
         setTimeout(() => {
             if (clown.parentNode) clown.remove();
         }, 3000);
     }
 
-    // Первый клоун чуть раньше
     setTimeout(createClown, 600);
 
-    // Цикл появления клоунов
     function scheduleNext() {
-        const delay = Math.random() * 3500 + 2500; // от 2.5 до 6 секунд
+        const delay = Math.random() * 3500 + 2500;
         setTimeout(() => {
             createClown();
             scheduleNext();
@@ -54,7 +84,7 @@
     }
     scheduleNext();
 
-    // ===== ПАРАЛЛАКС ДЛЯ ГЛУБИНЫ =====
+    // ===== ПАРАЛЛАКС =====
     document.addEventListener('mousemove', (e) => {
         const x = e.clientX / window.innerWidth - 0.5;
         const y = e.clientY / window.innerHeight - 0.5;
