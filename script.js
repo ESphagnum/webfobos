@@ -8,7 +8,7 @@
 
     // ===== МОДАЛЬНОЕ ОКНО =====
     function openModal(details) {
-        modalText.textContent = details;
+        modalText.innerHTML = details.replace(/\|\|/g, '<br>');
         modalOverlay.classList.add('active');
     }
 
